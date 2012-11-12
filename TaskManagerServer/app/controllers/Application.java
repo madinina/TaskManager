@@ -27,20 +27,16 @@ public class Application extends Controller {
 		return redirect(routes.Application.tasks());
 	}
 
-	public static Result tasks() {
+	/*public static Result tasks() {
 		List<Task> ttasks = Task.findAll();
 		return ok(
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll(), projects)
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll(), Project.findAll())
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll())
 				tasks.render(Task.findAll(), taskForm)
-				//views.html.index.render(Task.findAll(), taskForm, UserAccount.findAll())
 				);
-	}
+	}*/
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
-		if(filledForm.field("user_id").value() == null) filledForm.reject("user","");
+		if(filledForm.field("user.id").value() == null) filledForm.reject("user","");
 		if(filledForm.hasErrors()) {
 			return badRequest(
 					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll(), Project.findAll())
@@ -152,5 +148,18 @@ public class Application extends Controller {
 		
 
 	}
+	
+	
+	public static Result tasks() {
+		List<Task> ttasks = Task.findAll();
+		if (request().accepts("text/html")){
+			return ok(tasks.render(Task.findAll(), taskForm));
+		} else if (request().accepts("application/json")){
+			return ok(Json.toJson(ttasks));
+		}
+		return badRequest();
+	}
+	
+	
 
 }

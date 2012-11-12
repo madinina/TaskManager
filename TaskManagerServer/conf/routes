@@ -5,6 +5,9 @@
 # Home page
 GET     /                       controllers.Application.index()
 
+#response NEGOCIATION DE CONTENU
+#GET     /tasks_negociation      controllers.Application.tasks_negociation()
+
 #response in JSON
 GET     /tasks_json             controllers.Application.tasks_json()
                                 
