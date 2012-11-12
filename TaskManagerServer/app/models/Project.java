@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import java.util.Date;
 
@@ -25,6 +27,7 @@ public class Project extends Model
 {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@Required
 	private String label;

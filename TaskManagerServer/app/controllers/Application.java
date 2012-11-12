@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -10,9 +11,12 @@ import models.Project;
 import models.Task;
 import models.UserAccount;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.codehaus.jackson.node.ObjectNode;
 
 public class Application extends Controller {
 
@@ -36,6 +40,7 @@ public class Application extends Controller {
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
+		if(filledForm.field("user_id").value() == null) filledForm.reject("user","");
 		if(filledForm.hasErrors()) {
 			return badRequest(
 					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll(), Project.findAll())
@@ -135,5 +140,17 @@ public class Application extends Controller {
             routes.Application.login()
         );
     }
+    
+    
+	public static Result tasks_json() {
+		
+		List<Task> ttasks = Task.findAll();
+		/*result.put("key", "value");*/
+		/*return ok (tasks.render(Task.findAll(), taskForm));*/			
+		ObjectNode result = play.libs.Json.newObject();
+		return ok(Json.toJson(ttasks));
+		
+
+	}
 
 }

@@ -4,6 +4,9 @@
 
 # Home page
 GET     /                       controllers.Application.index()
+
+#response in JSON
+GET     /tasks_json             controllers.Application.tasks_json()
                                 
 # Tasks          
 GET     /tasks                  controllers.Application.tasks()
@@ -22,3 +25,4 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /login                              controllers.Application.login()
 POST    /login                              controllers.Application.authenticate()
 GET     /logout                             controllers.Application.logout()
+

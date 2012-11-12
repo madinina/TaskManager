@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
@@ -18,6 +20,7 @@ import play.db.ebean.Model.Finder;
 public class UserAccount extends Model
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@Email @Required
 	private String mail;

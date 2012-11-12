@@ -5,15 +5,21 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.Min;
 import play.db.ebean.Model;
+import play.api.libs.json.*;
 
 @Entity
 public class Task extends Model 
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@Required
@@ -23,6 +29,7 @@ public class Task extends Model
 	@Min(0)
 	private Integer priority;
 
+	@JsonIgnore
 	@ManyToOne
 	private Project project;
 
@@ -96,4 +103,9 @@ public class Task extends Model
 	{
 		find.ref(id).delete();
 	}
+
+	
+
+
+
 }
