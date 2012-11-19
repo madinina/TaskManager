@@ -5,6 +5,10 @@
 # Home page
 GET     /                       controllers.Application.index()
 
+#utilisation de JQuerry
+#POST     /tasks_querry           controllers.Application.tasks_querry()
+
+
 #response NEGOCIATION DE CONTENU
 #GET     /tasks_negociation      controllers.Application.tasks_negociation()
 
@@ -14,6 +18,7 @@ GET     /tasks_json             controllers.Application.tasks_json()
 # Tasks          
 GET     /tasks                  controllers.Application.tasks()
 POST    /tasks                  controllers.Application.newTask()
+POST    /tasks_querry           controllers.Application.tasks_querry()
 POST    /tasks/:id/delete       controllers.Application.deleteTask(id: Long)
 
 # Projects          

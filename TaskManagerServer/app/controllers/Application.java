@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 public class Application extends Controller {
@@ -36,11 +37,9 @@ public class Application extends Controller {
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
-		if(filledForm.field("user.id").value() == null) filledForm.reject("user","");
+		if(filledForm.field("user").value() == null) filledForm.reject("user","");
 		if(filledForm.hasErrors()) {
 			return badRequest(
-					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll(), Project.findAll())
-					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll())
 					tasks.render(Task.findAll(), filledForm)
 					);
 		} else {
@@ -48,6 +47,12 @@ public class Application extends Controller {
 			return redirect(routes.Application.tasks());  
 		}
 	}
+	
+	
+	
+
+	
+	
 
 	public static Result deleteTask(Long id) {
 		Task.delete(id);
@@ -150,6 +155,38 @@ public class Application extends Controller {
 	}
 	
 	
+	/*controller pour AJAX*/
+	public static Result tasks_querry() {
+		List<Task> ttasks = Task.findAll();
+		ObjectNode result = play.libs.Json.newObject();
+
+		return ok(Json.toJson(ttasks));
+	
+	}
+	
+	
+	/*
+	public static Result tasks_querry() {
+		JsonNode json = request().body().asJson();
+	*/
+		
+		/*List<Task> ttasks = json.fromJSON(json,Task.class);*/
+		/*ObjectNode result = play.libs.Json.newObject();*/
+		/*return ok(Json.toJson(ttasks));*/
+	/*	
+		Task task = Json.fromJson(json, Task.class);
+		Task.create(task);
+		if (request().accepts("text/html")){
+			return (taskForm);
+		} else if (request().accepts("application/json")){
+			return ok(Json.toJson(task));
+		}
+	}
+	
+	*/
+	
+	
+	
 	public static Result tasks() {
 		List<Task> ttasks = Task.findAll();
 		if (request().accepts("text/html")){
@@ -160,6 +197,7 @@ public class Application extends Controller {
 		return badRequest();
 	}
 	
-	
 
+	
+	
 }

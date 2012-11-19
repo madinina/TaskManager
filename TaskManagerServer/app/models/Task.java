@@ -14,6 +14,7 @@ import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.Min;
 import play.db.ebean.Model;
 import play.api.libs.json.*;
+import play.libs.F.*;
 
 @Entity
 public class Task extends Model 

@@ -43,8 +43,51 @@ Bonjour : @session.get("nickname")
                 '_label -> "User",
                 '_error -> taskForm("user").error.map(_.withMessage("Please select your userAccount"))
         		)
-        <input type="submit" value="Create">
+        <input id="btnForm" type="submit" value="Create">
+        
+        
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var btn = $("#btnForm");
+					btn.click(function(e) {
+						e.preventDefault();
+						<!--console.log("test");-->
+						var label = $("#label").val();
+							console.log(label);
+						var priority = $("#priority").val();
+							console.log(priority);
+						var project_id = $("#project_id").val();
+							console.log(project_id);
+						var user_id = $("#user_id").val();
+							console.log(user_id);
+						
+						var json = {
+							"label":label,
+							"priority":priority,
+							"user_id":user_id,
+							"project_id":project_id
+						};
+						console.log(json);
+						
+						$.ajax({
+							contentType:"application/json",
+							url:"http://localhost:9000/tasks_querry",
+							type:"POST",
+							data:JSON.stringify(json),
+							succes:function(data){
+								console.log("success");
+							} 
+							
+						});
+						
+					});
+		
+			});
+
+		</script>
         
     }   
     
 }
+
+
